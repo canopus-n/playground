@@ -1,4 +1,4 @@
-# -- Merge sort using recursive function calls
+# --- Merge sort using recursive function calls
 from typing import List
 
 
