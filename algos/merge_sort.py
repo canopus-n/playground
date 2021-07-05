@@ -14,20 +14,24 @@ def merge_sort(arr: List[int]) -> List[int]:
     left = merge_sort(arr[:mid])
     right = merge_sort(arr[mid:])
 
-    # merging left and right parts
+    # merging left and right parts using temp array
+    # track current indices for both the left and the right arrays
     left_i = right_i = 0
     while left_i < len(left) and right_i < len(right):
+        # -- append the smaller value to temp array and increment the corresponding index
         if left[left_i] < right[right_i]:
             temp_arr.append(left[left_i])
             left_i += 1
         else:
             temp_arr.append(right[right_i])
             right_i += 1
+    # -- append all remaining values from left
     if left_i < len(left):
         temp_arr.extend(left[left_i:])
+    # -- append all remaining values from right
     if right_i < len(right):
         temp_arr.extend(right[right_i:])
-    return temp_arr
+    return temp_arr  # -- sorted
 
 
 def main():
