@@ -32,7 +32,7 @@ class Romanizer:
 
 def main():
     romanizer = Romanizer()
-    print(romanizer.romanize_2(333))
+    print(romanizer.romanize_2(933))
 
 
 if __name__ == '__main__':
