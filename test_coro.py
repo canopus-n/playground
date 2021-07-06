@@ -1,11 +1,28 @@
-def foo():
+from typing import Callable
+from functools import wraps
+
+
+def coroutine(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        gen = fn(*args, **kwargs)
+        next(gen)
+        return gen
+    return wrapper
+
+
+@coroutine
+def foo(successor: Callable = None):
     """
     notice we use yield in both the
     traditional generator sense and
     also in the coroutine sense.
     """
-    msg = yield  # coroutine feature
-    yield msg    # generator feature
+    while True:
+        msg = yield  # coroutine feature
+        if successor is not None:
+            msg = successor.send(msg)
+        yield '%s in %s >' % (msg, 'foo')    # generator feature
 
 
 def main1():
@@ -26,19 +43,24 @@ def main1():
     print(result)   # -- bar
 
 
-def bar():
-    msg = yield "beep"
-    yield msg
+@coroutine
+def bar(successor: Callable = None):
+    while True:
+        msg = yield
+        if successor is not None:
+            msg = successor.send(msg)
+        yield '%s in %s >' % (msg, 'bar')
 
 
 def main():
-    coro = bar()
+    fns = [bar, foo, bar, foo, bar, foo]
+    # fns = [foo, bar]
+    pipeline = None
+    for fn in fns:
+        pipeline = fn(pipeline)
 
-    print(next(coro))  # beep
-
-    result = coro.send("foo")
-
-    print(result)  # bar
+    msg = pipeline.send('test')
+    print(msg)  # beep
 
 
 if __name__ == '__main__':
