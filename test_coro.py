@@ -1,18 +1,20 @@
-from typing import Callable
+
 from functools import wraps
+from collections import abc
 
 
+# -- defining custom wrapper named coroutine because types.coroutine does not advance the generator
 def coroutine(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
         gen = fn(*args, **kwargs)
-        next(gen)
+        next(gen)  # -- advance the generator once, calling next(...) is like .send(None)
         return gen
     return wrapper
 
 
 @coroutine
-def foo(successor: Callable = None):
+def foo(successor: abc.Generator = None):
     """
     notice we use yield in both the
     traditional generator sense and
@@ -20,9 +22,10 @@ def foo(successor: Callable = None):
     """
     while True:
         msg = yield  # coroutine feature
+        msg = '%s > %s in %s' % (msg, msg.split()[0], 'foo')
         if successor is not None:
             msg = successor.send(msg)
-        yield '%s in %s >' % (msg, 'foo')    # generator feature
+        yield msg    # generator feature
 
 
 def main1():
@@ -44,19 +47,20 @@ def main1():
 
 
 @coroutine
-def bar(successor: Callable = None):
+def bar(successor: abc.Generator = None):
     while True:
         msg = yield
+        msg = '%s > %s in %s' % (msg, msg.split()[0], 'bar')
         if successor is not None:
             msg = successor.send(msg)
-        yield '%s in %s >' % (msg, 'bar')
+        yield msg
 
 
 def main():
     fns = [bar, foo, bar, foo, bar, foo]
     # fns = [foo, bar]
     pipeline = None
-    for fn in fns:
+    for fn in reversed(fns):
         pipeline = fn(pipeline)
 
     msg = pipeline.send('test')
