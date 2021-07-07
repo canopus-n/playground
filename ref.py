@@ -174,7 +174,7 @@ class ParkingLot:
         return sum((v for v in self.spots.values()))
 
 
-def main():
+def test_parking_lot():
     vehicles = [
         Vehicle(1, VehicleType.CAR),Vehicle(2, VehicleType.VAN),Vehicle(1, VehicleType.VAN),
         Vehicle(1, VehicleType.CAR),Vehicle(1, VehicleType.CAR),Vehicle(1, VehicleType.CAR),
@@ -240,7 +240,7 @@ def main():
 # To run the code at any time, please hit the run button located in the top left corner.
 
 
-def main1():
+def main():
     # test_list: List[Test] = [Test(id=11, name='one'), Test(id=2, name='two'), Test(id=13, name='three')]
     # print('Test')
     # print(sort_test(test_list))
@@ -253,7 +253,10 @@ def main1():
     # print(check_brackets.check_line('((djhkkf)fjhfkjk)[dfhh]fdf}'))
     # print(check_brackets.check_line('((djhkkf)fjhfkjk)dfhh]{fdf}'))
 
-    print([i for i in next(FibonacciSequence(20))])
+    # print([i for i in next(FibonacciSequence(20))])
+
+    test = 'ibfdgaeadiaefgbhbdghhhbgdfgeiccbiehhfcggchgghadhdhagfbahhddgghbdehidbibaeaagaeeigffcebfbaieggabcfbiiedcabfihchdfabifahcbhagccbdfifhghcadfiadeeaheeddddiecaicbgigccageicehfdhdgafaddhffadigfhhcaedcedecafeacbdacgfgfeeibgaiffdehigebhhehiaahfidibccdcdagifgaihacihadecgifihbebffebdfbchbgigeccahgihbcbcaggebaaafgfedbfgagfediddghdgbgehhhifhgcedechahidcbchebheihaadbbbiaiccededchdagfhccfdefigfibifabeiaccghcegfbcghaefifbachebaacbhbfgfddeceababbacgffbagidebeadfihaefefegbghgddbbgddeehgfbhafbccidebgehifafgbghafacgfdccgifdcbbbidfifhdaibgigebigaedeaaiadegfefbhacgddhchgcbgcaeaieiegiffchbgbebgbehbbfcebciiagacaiechdigbgbghefcahgbhfibhedaeeiffebdiabcifgccdefabccdghehfibfiifdaicfedagahhdcbhbicdgibgcedieihcichadgchgbdcdagaihebbabhibcihicadgadfcihdheefbhffiageddhgahaidfdhhdbgciiaciegchiiebfbcbhaeagccfhbfhaddagnfieihghfbaggiffbbfbecgaiiidccdceadbbdfgigibgcgchafccdchgifdeieicbaididhfcfdedbhaadedfageigfdehgcdaecaebebebfcieaecfagfdieaefdiedbcadchabhebgehiidfcgahcdhcdhgchhiiheffiifeegcfdgbdeffhgeghdfhbfbifgidcafbfcd'
+    print(sorted(test))
 
 
 if __name__ == "__main__":
